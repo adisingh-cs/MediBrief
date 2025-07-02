@@ -119,7 +119,7 @@ This project was created during a hackathon to streamline clinical note generati
 - GitHub: [@Atheris29](https://github.com/Atheris29)
 
 **[Anchal Maheshwari]**  
-- Role: OCR Pipeline & PDF Handling  
+- Role: OCR Pipeline & PDF Handling
 - GitHub: [@AnchalMaheshwari16](https://github.com/AnchalMaheshwari16)
 
 **[Akanksha Gupta]**  
