@@ -107,7 +107,7 @@ This project was created during a hackathon to streamline clinical note generati
 ## 🚀 Project Lead
 
 **Aditya Singh**  
-- Role: Project Manager, Backend Developer (Django), AI Integration  
+- Role: Project Manager, Backend Developer (Django) 
 - GitHub: [@adisingh-cs](https://github.com/adisingh-cs)
 
 ---
@@ -123,7 +123,7 @@ This project was created during a hackathon to streamline clinical note generati
 - GitHub: [@AnchalMaheshwari16](https://github.com/AnchalMaheshwari16)
 
 **[Akanksha Gupta]**  
-- Role: Testing, Note Structuring, Documentation  
+- Role: AI Integration,Easy OCR Integration, Documentation, Testing
 - GitHub: [@Agupta163](https://github.com/Agupta163)
 
 ---
