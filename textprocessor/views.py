@@ -25,7 +25,7 @@ from reportlab.lib import colors
 from reportlab.lib.units import inch
 import urllib.request
 
-client = openai.OpenAI(api_key="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")
+client = openai.OpenAI(api_key="API KEY HERE")
 reader = easyocr.Reader(['en', 'hi'])
 
 def extract_text_openai_from_base64_file_data(base64_full):
