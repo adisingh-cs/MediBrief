@@ -1,0 +1,1052 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MediBrief | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="https://iili.io/FRzYAdP.png" type="image/x-icon">
+    <style>
+        /* ===== BASE THEME ===== */
+        :root {
+            /* Color Palette */
+            --primary: #00796b;
+            --primary-dark: #00695c;
+            --secondary: #e0f2f1;
+            --accent: #009688;
+            --bg: #f4fdfd;
+            --text-dark: #1a1a1a;
+            --text-light: #fff;
+            --card-bg: #ffffff;
+            /* Design Tokens */
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--bg);
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            color: var(--primary);
+        }
+
+        .button {
+            padding: 0.8rem 1.8rem;
+            background-color: var(--accent);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 1rem auto 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .bg-primary {
+            background-color: var(--primary);
+        }
+
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+
+        .bg-accent {
+            background-color: var(--accent);
+        }
+
+        .text-light {
+            color: var(--text-light);
+        }
+
+        .text-dark {
+            color: var(--text-dark);
+        }
+
+        /* Layout overrides for this dashboard */
+        .navbar {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            padding: 18px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .navbar-images {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .nav-links li a:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .greeting {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            background: var(--secondary);
+            padding: 16px 20px 8px 20px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            gap: 4px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+            max-width: 420px;
+            margin-right: auto;
+        }
+
+        .footer-logo img {
+            height: 28px !important;
+            margin-bottom: 0;
+        }
+
+        .footer-logo p {
+            color: var(--primary-dark);
+            font-size: 0.98rem;
+            margin: 0 0 0 10px;
+            white-space: nowrap;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-social-left {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+
+        .footer-social-left a {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            transition: color 0.2s;
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+            padding: 0;
+        }
+
+        .footer-social-left a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 8px 0 16px 0;
+            font-size: 0.95rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        @media (max-width: 900px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                padding: 24px 8px 8px 8px;
+                gap: 18px;
+            }
+
+            .footer-logo,
+            .footer-links {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .container {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            min-height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+            width: 270px;
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 28px 18px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #b2dfdb;
+            padding-bottom: 6px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .main {
+            flex: 1;
+            padding: 36px 40px;
+            background: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .chat-box pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 14px;
+            font-size: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #b2dfdb;
+            resize: none;
+            min-height: 90px;
+            background: inherit;
+            color: inherit;
+        }
+
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #dropzone {
+            border: 2px dashed var(--primary-dark);
+            border-radius: var(--border-radius);
+            padding: 22px 18px;
+            text-align: center;
+            background: var(--secondary);
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: border 0.3s, background 0.3s;
+        }
+
+        #dropzone.dragover {
+            background: #b2dfdb;
+            border-color: var(--accent);
+        }
+
+        #submitBtn:disabled {
+            background: #bbb;
+            cursor: not-allowed;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .fa-microphone {
+            font-size: 1.2rem;
+        }
+
+        .pdf-form {
+            margin-top: 16px;
+        }
+
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: white;
+            color: var(--primary-dark);
+            padding: 16px 28px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            font-size: 1rem;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 12px 0;
+            }
+
+            .main {
+                padding: 18px 6px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main {
+                padding: 8px 2px;
+            }
+
+            .card {
+                padding: 16px 6px;
+            }
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .upload-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 1.2rem;
+        }
+
+        @media (max-width: 700px) {
+            .upload-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            #dropzone,
+            .file-upload {
+                width: 100%;
+            }
+
+            #submitBtn {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+
+        .input-area {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            padding: 0.5rem 0.5rem 0.5rem 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .input-area textarea {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1.08rem;
+            color: var(--text-dark);
+            border-radius: var(--border-radius);
+            resize: none;
+            min-height: 90px;
+            box-shadow: none;
+            padding: 0.7rem 0.7rem 0.7rem 0;
+            transition: box-shadow 0.2s, border 0.2s;
+        }
+
+        .input-area textarea:focus {
+            box-shadow: 0 0 0 2px var(--accent);
+            background: #f8fdfd;
+        }
+
+        .input-btn {
+            background: var(--secondary);
+            border: none;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin-left: 0.4rem;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .input-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        @media (max-width: 700px) {
+            .input-area {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0.5rem;
+            }
+
+            .input-btn {
+                margin: 0.3rem 0 0 0;
+                width: 100%;
+                border-radius: 8px;
+            }
+        }
+
+        .chat-input-bar {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            border-radius: 2rem;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            z-index: 1000;
+            margin: 252px auto 0 auto;
+            overflow: hidden;
+            box-sizing: border-box;
+            border: 1.5px solid var(--secondary);
+        }
+
+        .chat-input-bar input[type="text"] {
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            padding: 0.7rem 1rem;
+            outline: none;
+            flex: 1;
+        }
+
+        .inputbar-btn {
+            background: var(--secondary);
+            border: none;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin: 0 0.2rem;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .inputbar-btn:hover,
+        .inputbar-btn:focus {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .send-btn {
+            background: var(--accent);
+            color: #fff;
+            margin-left: 0.3rem;
+            transition: background 0.2s;
+        }
+
+        .send-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 700px) {
+            .chat-input-bar {
+                width: 98vw;
+                max-width: 99vw;
+                padding: 0.3rem 0.3rem;
+            }
+
+            .inputbar-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 1.1rem;
+            }
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            min-height: calc(100vh - 64px);
+        }
+
+        @media (max-width: 700px) {
+            .main {
+                padding: 18px 12px;
+            }
+
+            .sidebar {
+                padding: 12px 8px;
+            }
+
+            .navbar {
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .navbar-images img {
+                height: 30px !important;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .input-area {
+                padding: 0.3rem;
+            }
+
+            .footer-logo {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-logo img {
+                margin-bottom: 8px;
+            }
+        }
+
+        .chat-input-bar.dragover {
+            border: 2px dashed var(--accent);
+            background: var(--secondary);
+        }
+
+        .sidebar-filter {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--secondary);
+            border-radius: var(--border-radius);
+            padding: 14px 12px 10px 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .sidebar-filter-label {
+            font-size: 1rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar-filter input[type="text"],
+        .sidebar-filter input[type="date"] {
+            width: 100%;
+            box-sizing: border-box;
+            background: var(--card-bg);
+            color: var(--primary-dark);
+            border: 1.5px solid var(--secondary);
+            border-radius: 8px;
+            padding: 9px 12px 9px 36px;
+            font-size: 1rem;
+            transition: border 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            outline: none;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .sidebar-filter input[type="text"]:focus,
+        .sidebar-filter input[type="date"]:focus {
+            border: 1.5px solid var(--accent);
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+
+        .sidebar-filter .filter-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .sidebar-filter-input-wrap {
+            position: relative;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Modern Header -->
+    <header class="navbar">
+        <div class="navbar-images">
+            <img src="{% static 'textprocessor/images/footer-img1.png' %}" alt="AI Medical Text Analysis"
+                style="height: 40px; margin-right: 10px;">
+            <img src="{% static 'textprocessor/images/footer-img2.png' %}" alt="AI Medical Text Analysis"
+                style="height: 40px;">
+        </div>
+        <ul class="nav-links">
+            <li><a href="https://medibrief.netlify.app/">Home</a></li>
+            <li><a href="https://medibrief.netlify.app/#about">About</a></li>
+            <li><a href="https://medibrief.netlify.app/#services">Services</a></li>
+            <li><a href="https://medibrief.netlify.app/#how-it-works">How It Works</a></li>
+            <li><a href="https://medibrief.netlify.app/#pricing">Pricing</a></li>
+        </ul>
+        <div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="button" style="margin-right: 10px;">Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="button" style="margin-right: 10px;">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2><i class="fa-solid fa-clock"></i> Chat History</h2>
+
+            {% if chat_history %}
+            <ul id="chatList">
+                {% for chat in chat_history %}
+                <li data-name="{{ chat.patient_name|lower }}" data-date="{{ chat.formatted_date }}"
+                    data-date-iso="{{ chat.case_filing_date|date:'Y-m-d' }}">
+                    <a href="{% url 'view_chat' chat.id %}">
+                        <i class="fa-regular fa-comment"></i>
+                        <span class="chat-patient-name">{{ chat.patient_name }}</span>
+                        <span class="chat-date">| {{ chat.formatted_date }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No previous chats.</p>
+            {% endif %}
+        </div>
+
+
+        <!-- Main -->
+        <div class="main">
+            {% if user.is_authenticated %}
+            <h2 class="greeting">Hello, {{ username_cap }}</h2>
+            {% endif %}
+            <div class="card chat-box">
+                {% if response %}
+                <h3><i class="fa-solid fa-robot"></i> Medical Summary</h3>
+                <pre>{{ response }}</pre>
+                {% if response %}
+                <form method="POST" action="{% url 'download_pdf' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="pdf_content" value="{{ response|escape }}">
+                    <button type="submit" class="button"><i class="fa-solid fa-download"></i> Download Summary
+                        PDF</button>
+                </form>
+                {% endif %}
+
+                {% else %}
+                <p><i class="fa-solid fa-circle-info"></i> Submit a doctor-patient conversation to generate a summary.
+                </p>
+                {% endif %}
+            </div>
+
+            <form method="post" enctype="multipart/form-data" id="mainForm" autocomplete="off" style="margin:0;">
+                {% csrf_token %}
+                <div class="chat-input-bar">
+                    <button type="button" class="inputbar-btn" id="plusBtn" title="Upload Image"
+                        onclick="document.getElementById('uploaded_file').click()"><i
+                            class="fa-solid fa-plus"></i></button>
+                    <input type="text" name="user_input" id="user_input" placeholder="Ask anything"
+                        autocomplete="off" />
+                    <input type="file" name="uploaded_file" id="uploaded_file" accept=".jpg,.jpeg,.png,.pdf,.txt,.docx"
+                        style="display:none;">
+                    <button type="button" class="inputbar-btn" id="voiceBtn" title="Speak" onclick="toggleListening()"><i
+                            class="fa-solid fa-microphone"></i></button>
+                    <button type="submit" class="inputbar-btn send-btn" id="submitBtn" title="Send"><i
+                            class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Toast notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Speech recognition variables
+        let recognition = null;
+        let isListening = false;
+        const micButton = document.getElementById('micButton');
+
+        function toggleListening() {
+            if (!('webkitSpeechRecognition' in window)) {
+                showToast('Speech recognition not supported in this browser.');
+                return;
+            }
+
+            if (!isListening) {
+                // Start listening
+                recognition = new webkitSpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = "en-US";
+
+                recognition.onstart = function () {
+                    isListening = true;
+                    micButton.classList.add('active');
+                    showToast('Listening... Click mic to stop');
+                };
+
+                recognition.onresult = function (event) {
+                    const input = document.getElementById("user_input");
+                    let interimTranscript = '';
+                    let finalTranscript = '';
+
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript;
+                        } else {
+                            interimTranscript += transcript;
+                        }
+                    }
+
+                    // Update the input field with both interim and final results
+                    if (finalTranscript) {
+                        if (input.value.trim().length > 0) {
+                            input.value = input.value.trim() + ' ' + finalTranscript;
+                        } else {
+                            input.value = finalTranscript;
+                        }
+                        checkSubmitState();
+                    }
+                };
+
+                recognition.onerror = function (event) {
+                    if (event.error === "network") {
+                        showToast("Network error: Please check your internet connection and use Chrome with HTTPS.");
+                    } else if (event.error === "not-allowed") {
+                        showToast("Microphone access denied. Please allow microphone permissions.");
+                    } else {
+                        showToast("Speech recognition error: " + event.error);
+                    }
+                    stopListening();
+                };
+
+                recognition.onend = function () {
+                    if (isListening) {
+                        // If still supposed to be listening, restart
+                        recognition.start();
+                    }
+                };
+
+                recognition.start();
+            } else {
+                // Stop listening
+                stopListening();
+            }
+        }
+
+        function stopListening() {
+            if (recognition) {
+                recognition.stop();
+            }
+            isListening = false;
+            micButton.classList.remove('active');
+            showToast('Stopped listening');
+        }
+
+        // Form logic
+        const userInput = document.getElementById('user_input');
+        const fileInput = document.getElementById('uploaded_file');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function checkSubmitState() {
+            const hasText = userInput.value.trim().length > 0;
+            const hasFile = fileInput.files.length > 0;
+            submitBtn.disabled = !(hasText || hasFile);
+        }
+
+        userInput.addEventListener('input', checkSubmitState);
+        fileInput.addEventListener('change', checkSubmitState);
+
+        // Optional: Show toast or filename on file select
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) showToast('File selected: ' + fileInput.files[0].name);
+        });
+
+        // Enter key submits form
+        userInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (!submitBtn.disabled) submitBtn.click();
+            }
+        });
+
+        // Initial state
+        checkSubmitState();
+
+        // Drag and drop for chat input bar
+        const chatInputBar = document.querySelector('.chat-input-bar');
+        chatInputBar.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            chatInputBar.classList.add('dragover');
+        });
+        chatInputBar.addEventListener('dragleave', (e) => {
+            chatInputBar.classList.remove('dragover');
+        });
+        chatInputBar.addEventListener('drop', (e) => {
+            e.preventDefault();
+            chatInputBar.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                showToast('File dropped: ' + files[0].name);
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        });
+
+        // Sidebar filter logic
+        const filterName = document.getElementById('filterName');
+        const filterDate = document.getElementById('filterDate');
+        const chatList = document.getElementById('chatList');
+        const searchNameIcon = document.getElementById('searchNameIcon');
+
+        if (filterName && filterDate && chatList) {
+            function filterChats() {
+                const nameVal = filterName.value.trim().toLowerCase();
+                const dateVal = filterDate.value;
+                Array.from(chatList.children).forEach(li => {
+                    const chatName = li.getAttribute('data-name');
+                    const chatDateIso = li.getAttribute('data-date-iso');
+                    let show = true;
+                    if (nameVal && !chatName.includes(nameVal)) show = false;
+                    if (dateVal && chatDateIso !== dateVal) show = false;
+                    li.style.display = show ? '' : 'none';
+                });
+            }
+            filterName.addEventListener('input', filterChats);
+            filterDate.addEventListener('change', filterChats);
+            filterName.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') filterChats();
+            });
+            filterDate.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') filterChats();
+            });
+            if (searchNameIcon) {
+                searchNameIcon.addEventListener('click', filterChats);
+            }
+        }
+    </script>
+
+    {% if name_missing %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const name = prompt("⚠️ Patient name not found.\nPlease enter the patient's name:");
+
+            if (name && name.trim() !== "") {
+                const form = document.getElementById("mainForm");
+                const existing = document.querySelector("input[name='manual_name']");
+                if (existing) existing.remove();
+
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "manual_name";
+                hiddenInput.value = name.trim();
+                form.appendChild(hiddenInput);
+                form.submit();
+            } else {
+                showToast("❌ Chat not saved because patient name is required.");
+            }
+        });
+    </script>
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | MediBrief</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://iili.io/FRzYAdP.png" type="image/x-icon">
+    <style>
+        :root {
+          --primary: #00796b;
+          --primary-dark: #00695c;
+          --secondary: #e0f2f1;
+          --accent: #009688;
+          --bg: #f4fdfd;
+          --text-dark: #1a1a1a;
+          --text-light: #fff;
+          --card-bg: #ffffff;
+          --border-radius: 12px;
+          --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+          --transition: all 0.3s ease;
+        }
+        body {
+          font-family: 'Nunito', sans-serif;
+          color: var(--text-dark);
+          line-height: 1.6;
+          background: var(--bg);
+          margin: 0;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .login-container {
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+        .card {
+          background: linear-gradient(135deg, #fafdff 80%, #e0f2f1 100%);
+          padding: 2.5rem 2rem 2rem 2rem;
+          border-radius: 18px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1.5px 8px rgba(0,0,0,0.04);
+          border: 1.5px solid #e0f2f1;
+          transition: box-shadow 0.3s, border 0.3s;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .logo {
+          margin-bottom: 1.5rem;
+        }
+        .logo img {
+          height: 48px;
+          margin: 0 8px;
+          vertical-align: middle;
+        }
+        h2 {
+          font-family: 'Inter', sans-serif;
+          color: var(--primary);
+          margin-bottom: 1.5rem;
+          font-size: 2rem;
+          font-weight: 700;
+        }
+        form {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+        }
+        .input-group {
+          width: 80%;
+          max-width: 320px;
+          min-width: 180px;
+          margin: 0 auto 1.5rem auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+        }
+        .input-group label {
+          position: absolute;
+          left: 18px;
+          top: 1.1rem;
+          color: #7bbcb3;
+          font-size: 1rem;
+          background: transparent;
+          pointer-events: none;
+          transition: 0.2s;
+          padding: 0 4px;
+          z-index: 2;
+        }
+        input[type="text"], input[type="password"] {
+          width: 100%;
+          min-width: 120px;
+          max-width: 320px;
+          margin: 0 auto;
+          padding: 1.1rem 1.2rem 1.1rem 1.2rem;
+          border: 1.5px solid #b2dfdb;
+          border-radius: 14px;
+          font-size: 1.08rem;
+          background: #fafdff;
+          color: var(--text-dark);
+          transition: border 0.2s, box-shadow 0.2s;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+          outline: none;
+          vertical-align: middle;
+          font-family: 'Inter', 'Nunito', sans-serif;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+          border-color: var(--accent);
+          box-shadow: 0 0 0 2px var(--accent), 0 2px 12px rgba(0,0,0,0.10);
+          background: #f4fdfd;
+        }
+        input[type="text"]:focus + label,
+        input[type="text"]:not(:placeholder-shown) + label,
+        input[type="password"]:focus + label,
+        input[type="password"]:not(:placeholder-shown) + label {
+          top: -0.7rem;
+          left: 14px;
+          font-size: 0.92rem;
+          color: var(--primary-dark);
+          background: #fafdff;
+          padding: 0 6px;
+          border-radius: 8px;
+          z-index: 3;
+        }
+        input[type="text"]::placeholder, input[type="password"]::placeholder {
+          color: transparent;
+        }
+        .button {
+          display: block;
+          margin: 0 auto;
+          min-width: 120px;
+          max-width: 200px;
+          background: linear-gradient(90deg, var(--accent) 60%, var(--primary) 100%);
+          color: #fff;
+          font-weight: 700;
+          border: none;
+          border-radius: 2rem;
+          font-size: 1.08rem;
+          padding: 0.9rem 2.2rem;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+          transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+        .button:hover {
+          background: linear-gradient(90deg, var(--primary-dark) 60%, var(--accent) 100%);
+          transform: scale(1.045);
+          box-shadow: 0 6px 18px rgba(0,0,0,0.13);
+        }
+        .register-link {
+          margin-top: 1.2rem;
+          text-align: center;
+        }
+        .register-link a {
+          color: var(--primary);
+          text-decoration: none;
+          font-weight: 600;
+        }
+        .register-link a:hover {
+          text-decoration: underline;
+        }
+        .error-message {
+          color: #d32f2f;
+          background: #ffebee;
+          border-radius: var(--border-radius);
+          padding: 0.7rem 1rem;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="card">
+            <div class="logo">
+                <img src="{% static 'textprocessor/images/header-img1.png' %}" alt="MediBrief Icon">
+                <img src="{% static 'textprocessor/images/header-img2.png' %}" alt="MediBrief Logo">
+            </div>
+            <h2>Login to MediBrief</h2>
+            {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" id="username" name="username" required autocomplete="username" placeholder=" " />
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder=" " />
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="button">Login</button>
+            </form>
+            <div class="register-link">
+                Don't have an account? <a href="{% url 'register' %}">Register</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

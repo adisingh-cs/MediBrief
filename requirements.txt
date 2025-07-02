@@ -1,0 +1,8 @@
+Django
+opencv-python
+PyMuPDF
+python-docx
+openai
+easyocr
+numpy
+reportlab

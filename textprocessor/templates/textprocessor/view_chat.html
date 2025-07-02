@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Chat #{{ chat.id }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="shortcut icon" href="https://iili.io/FRzYAdP.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f2f5;
+            padding: 40px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 30px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .actions a, .actions button {
+            padding: 10px 16px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .actions a:hover, .actions button:hover {
+            background-color: #2980b9;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            text-decoration: none;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fa-solid fa-file-medical"></i> Chat #{{ chat.id }}</h2>
+        <div class="meta"><i class="fa-regular fa-clock"></i> {{ chat.timestamp|date:"Y-m-d H:i" }}</div>
+
+        <h3><i class="fa-solid fa-user"></i> User Input</h3>
+        <pre>{{ chat.user_input }}</pre>
+
+        <h3><i class="fa-solid fa-robot"></i> Response</h3>
+        <pre>{{ chat.response }}</pre>
+
+        <div class="actions">
+            <a href="{% url 'edit_chat' chat.id %}"><i class="fa-solid fa-pen"></i> Edit</a>
+            <a href="{% url 'delete_chat' chat.id %}"><i class="fa-solid fa-trash"></i> Delete</a>
+            <a href="{% url 'download_chat_pdf' chat.id %}"><i class="fa-solid fa-download"></i> Download PDF</a>
+        </div>
+
+        <a class="back-link" href="{% url 'index' %}"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+    </div>
+</body>
+</html>
