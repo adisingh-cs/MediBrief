@@ -51,24 +51,28 @@ It leverages **OpenAI's GPT-4o/GPT-3.5-turbo** for advanced AI-powered note gene
 
 2. **Set Up a Virtual Environment**
 
-   ```python -m venv venv
+   ```bash
+   python -m venv venv
    source venv/bin/activate   # For Linux/macOS
    venv\Scripts\activate      # For Windows
 
 3. **Install Dependencies**
 
-   ```pip install -r requirements.txt
+   ```bash
+   pip install -r requirements.txt
 
 4. **Configure OpenAI API Key**
 
    - Open views.py and set your API key:
 
-   ```client = openai.OpenAI(api_key="your-api-key-here")
+   ```bash
+   client = openai.OpenAI(api_key="your-api-key-here")
 
 5. **Apply Migrations & Run the Server**
 
-   ```python manage.py migrate
-    python manage.py runserver
+   ```bash
+   python manage.py migrate
+   python manage.py runserver
 
 - Open your browser at: http://127.0.0.1:8000
 
